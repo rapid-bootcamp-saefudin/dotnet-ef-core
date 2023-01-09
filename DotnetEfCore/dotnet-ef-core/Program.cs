@@ -1,4 +1,17 @@
+using dotnet_ef_core.DataContext;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApplicationDbContext>(options => {
+    options.UseMySQL(connectionString);
+});
+
+
+/*
+var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+*/
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
